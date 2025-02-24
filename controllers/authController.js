@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
             [username, hashedPassword, age, profile_pic]
         );
 
-        res.json(newUser.rows[0]);
+        res.redirect("index");
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -32,7 +32,10 @@ exports.login = async (req, res) => {
         if (!validPassword) return res.status(400).json({ error: "Invalid credentials" });
         
         const token = jwt.sign({ user_id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res.json({ token });
+        // Set token in cookies
+        res.cookie("token", token, { httpOnly: true });
+
+        res.json({ success: true, redirect: "/"});
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
