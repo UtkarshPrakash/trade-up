@@ -16,8 +16,8 @@ const exp = require("node:constants");
 const assetsPath = path.join(__dirname, "public");
 const app = express();
 
-app.use(express.json());
 app.use(cookieParser());
+app.use(express.json());
 app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true}));
 app.set("view engine", "ejs");
@@ -34,9 +34,17 @@ app.get("/", async (req, res) => {
     try {
         const itemsResponse = await axios.get("http://localhost:3000/items"); // change to wherever hosted
         const items = itemsResponse.data || [];
-        res.render("index", { items });
+        const response = await fetch(
+            "http://localhost:3000/auth/user", { 
+            method: "GET",
+            headers: {Cookie: `token=${token}`} // /auth/user req should contain the token 
+        });
+        const userData = await response.json() || { id: -1 };
+        console.log(userData);
+        res.render("index", { items: items, buyer_id: userData.id });
     } catch (err) {
-        res.render("index", { items: [] });
+        console.log(err.message);
+        res.render("index", { items: [], buyer_id: userData.id });
     }
 
     res.render("index");

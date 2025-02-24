@@ -4,6 +4,6 @@ const { createChat, getUserChats, getChatMessages } = require("../controllers/ch
 
 router.post("/", createChat);
 router.get("/:user_id", getUserChats);
-router.get("messages/:chat_id", getChatMessages);
+router.get("/messages/:chat_id", getChatMessages);
 
 module.exports = router;

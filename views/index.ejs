@@ -74,7 +74,7 @@
                     <p>Price: ₹<%= item.price %></p>
                     <form action="/chats/" method="POST">
                         <input type="hidden" name="seller_id" value="<%= item.user_id %>">
-                        <input type="hidden" name="buyer_id" value="value2">
+                        <input type="hidden" name="buyer_id" value="<%= buyer_id %>">
                         <button type="submit">Chat with seller</button>
                     </form>
                 </div>

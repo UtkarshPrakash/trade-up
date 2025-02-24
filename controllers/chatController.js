@@ -45,7 +45,7 @@ exports.getChatMessages = async (req, res) => {
         const messages = await pool.query(
             "SELECT * FROM messages WHERE chat_id = $1 ORDER BY timestamp ASC",
             [chat_id]
-        )
+        );
         res.json(messages.rows);
     } catch (err) {
         res.status(500).json({ error: err.message });

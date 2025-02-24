@@ -2,6 +2,22 @@ const pool = require("../db/pool");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+exports.getUser = async (req, res) => {
+    try {
+        const token = req.cookies.token; // Read JWT from cookies
+        if (!token) return res.status(401).json({ error: "Not authenticated" });
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await pool.query("SELECT id, username FROM users WHERE id = $1", [decoded.user_id]);
+
+        if (user.rows.length === 0) return res.status(404).json({ error: "User not found" });
+
+        res.json(user.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
 exports.register = async (req, res) => {
     try {
         const { username, password, age } = req.body;
