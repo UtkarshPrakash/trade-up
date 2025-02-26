@@ -41,15 +41,17 @@ CREATE TABLE messages (
 
 ---------------------------------------------------------
 INSERT INTO users (username, pass, age, profile_pic) VALUES
-('user1', 'pass123', 25, 'http://example.com/user1.jpg'),
-('user2', 'pass456', 30, 'http://example.com/user2.jpg'),
-('user3', 'pass789', 22, 'http://example.com/user3.jpg');
+('user1', 'pass123', 25, 'https://i.sstatic.net/l60Hf.png'),
+('user2', 'pass456', 30, 'https://i.sstatic.net/l60Hf.png'),
+('user3', 'pass789', 22, 'https://i.sstatic.net/l60Hf.png');
 
 
 INSERT INTO items (user_id, title, description, price, image_url, created_at) VALUES
-(1, 'Vintage Lamp', 'A beautiful vintage lamp.', 45, 'http://example.com/lamp.jpg', '2025-02-23 09:30:00'),
-(2, 'Modern Chair', 'A sleek modern chair.', 89, 'http://example.com/chair.jpg', '2025-02-23 09:45:00'),
-(3, 'Wooden Table', 'A sturdy wooden table.', 150, 'http://example.com/table.jpg', '2025-02-23 10:15:00');
+(1, 'Vintage Lamp', 'A beautiful vintage lamp.', 650, 'https://m.media-amazon.com/images/I/71-V+DX0olL._AC_UF1000,1000_QL80_.jpg', '2025-02-23 09:30:00'),
+(2, 'Modern Chair', 'A sleek modern chair.', 2500, 'https://thumbs.dreamstime.com/b/explore-stunning-collection-unique-modern-chair-designs-blend-functionality-artistic-flair-elevate-your-space-288578786.jpg', '2025-02-23 09:45:00'),
+(3, 'Iphone 15', 'A beautiful and performant phone, very lightly used.', 60000, 'https://images.macrumors.com/t/TkNh1oQ0-9TnnBjDnLyuz6yLkjE=/1600x0/article-new/2023/09/iPhone-15-General-Feature-Black.jpg', '2025-02-23 10:15:00'),
+(4, 'Canyon Mountain Bike', 'A bike with highly modern design.', 19000, 'https://road.cc/sites/default/files/styles/main_width/public/canyon-orbiter.jpeg', '2025-02-23 10:15:00'),
+(5, 'Trolley bag', 'A high capacity trolley bag.', 3000, 'https://www.shutterstock.com/image-photo/luggage-black-suitcase-isolated-on-600nw-2489321493.jpg', '2025-02-23 10:15:00');
 
 
 INSERT INTO saved_items (user_id, item_id) VALUES

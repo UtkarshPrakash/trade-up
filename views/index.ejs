@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App</title>
+    <title>Trade Up</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,7 +60,7 @@
         </form>
     </div>
     <div class="container">
-        <h1>Welcome to the Chat App</h1>
+        <h1>Welcome to Trade Up!</h1>
         <p>Browse items, connect with sellers, and chat in real-time.</p>
     </div>
 
@@ -72,11 +72,12 @@
                     <h3><%= item.title %></h3>
                     <p><%= item.desription %></p>
                     <p>Price: ₹<%= item.price %></p>
-                    <form action="/chats/" method="POST">
+                    <button onclick="startChat('<%= buyer_id %>', '<%= item.user_id %>')">Start Chat</button>
+                    <!-- <form action="/chats/" method="POST">
                         <input type="hidden" name="seller_id" value="<%= item.user_id %>">
                         <input type="hidden" name="buyer_id" value="<%= buyer_id %>">
-                        <button type="submit">Chat with seller</button>
-                    </form>
+                        <button class="start-chat" data-seller-id="<%= item.user_id %>" data-buyer-id="<%= buyer_id %>" type="submit">Chat with seller</button>
+                    </form> -->
                 </div>
             <% }) %>
         <% } else { %>

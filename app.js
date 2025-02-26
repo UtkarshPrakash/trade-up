@@ -54,9 +54,34 @@ app.get("/profile", (req, res) => {
     res.render("profile");
 });
 
-app.get("/chats", (req, res) => {
-    res.render("chats");
-})
+app.get("/chats", async (req, res) => {
+    console.log("Inside /chats"); 
+    const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+    if (!token) return res.redirect("/auth/login");
+
+    try {
+        const response = await fetch("http://localhost:3000/auth/user", {
+            method: "GET",
+            credentials: "include", // Ensure cookies are sent
+            headers: { Cookie: `token=${token}` }
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch user data");
+
+        const userData = await response.json();
+        const user_id = userData.id;
+
+        const chatResponse = await pool.query(
+            "SELECT * FROM chats WHERE buyer_id = $1 OR seller_id = $1 ORDER BY created_at DESC",
+            [user_id]
+        );
+
+        res.render("chats", { chats: chatResponse.rows, user_id });
+    } catch (err) {
+        console.error("Error:", err.message);
+        res.status(500).send("Error fetching chats");
+    }
+});
 
 const server = http.createServer(app);
 const io = new Server(server, {

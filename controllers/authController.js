@@ -31,7 +31,7 @@ exports.register = async (req, res) => {
             [username, hashedPassword, age, profile_pic]
         );
 
-        res.redirect("index");
+        res.redirect("/");
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.rows[0].pass);
         if (!validPassword) return res.status(400).json({ error: "Invalid credentials" });
         
-        const token = jwt.sign({ user_id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ user_id: user.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1d" });
         // Set token in cookies
         res.cookie("token", token, { httpOnly: true });
 

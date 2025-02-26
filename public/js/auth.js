@@ -1,3 +1,20 @@
+async function startChat(buyerId, sellerId) {
+    try {
+        const response = await fetch("/chats/new", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ buyer_id: buyerId, seller_id: sellerId }),
+        });
+
+        if (!response.ok) throw new Error("Failed to start chat");
+
+        const chatData = await response.json();
+        window.location.href = `/chats/${chatData.chat_id}`; // Redirects to chat page
+    } catch (err) {
+        console.error("Error starting chat:", err);
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const signupForm = document.getElementById("signup-form");

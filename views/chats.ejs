@@ -75,19 +75,42 @@
         <!-- Left Panel: List of Chats -->
         <div class="sidebar">
             <h2>Your Chats</h2>
-            <div id="chatList"></div>
+            <div id="chatList">
+                <% if (chats.length > 0) { %>
+                    <% chats.forEach(chat => { %>
+                        <div class="chat-item" onclick="window.location.href='/chats/<%= chat.id %>'">
+                            Chat with <%= chat.seller_id === user_id ? chat.buyer_id : chat.seller_id %>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No chats available</p>
+                <% } %>
+            </div>
         </div>
 
         <!-- Main Panel: Chat Messages -->
         <div class="chat-box">
-            <h2 id="chatTitle">Select a chat to start messaging</h2>
-            <div class="messages" id="messages"></div>
-            <div class="input-box" id="inputBox" style="display: none;">
-                <input type="text" id="messageInput" placeholder="Type a message..." />
-                <button onclick="sendMessage()">Send</button>
-            </div>
+            <% if (chatDetails) { %>
+                <h2 id="chatTitle">
+                    Chat with <%= chatDetails.seller_id === user_id ? chatDetails.buyer_id : chatDetails.seller_id %>
+                </h2>
+                <div class="messages" id="messages">
+                    <% messages.forEach(msg => { %>
+                        <div class="<%= msg.sender_id === user_id ? 'sent' : 'received' %>">
+                            <%= msg.message %>
+                        </div>
+                    <% }) %>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="messageInput" placeholder="Type a message..." />
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            <% } else { %>
+                <p>Select a chat to start messaging.</p>
+            <% } %>
         </div>
     </div>
-    <script defer src="/public/js/chats.js"></script>
+
+    <script> window.userId = <%= user_id %>; </script>
 </body>
 </html>
