@@ -89,7 +89,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
+    // console.log("User connected:", socket.id);
+
+    // socket.on("connect", () => {
+    //     console.log("Socket connected;", socket.id);
+    // })
 
     socket.on("join_chat", (chatId) => {
         console.log(`User ${socket.id} joined chat ${chatId}`);
@@ -98,7 +102,7 @@ io.on("connection", (socket) => {
 
     socket.on("send_message", async ({ chat_id, sender_id, message }) => {
         try {
-            console.log("Message received", message);
+            console.log(`Received message: ${message} from sender ${sender_id} in chat ${chat_id}`);
             const newMessage = await pool.query(
                 "INSERT INTO messages (chat_id, sender_id, message, timestamp) VALUES ($1, $2, $3, NOW()) RETURNING *",
                 [chat_id, sender_id, message]

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chats</title>
     <script defer src="/socket.io/socket.io.js"></script>
-    <script defer src="/public/js/chats.js"></script>
+    <script defer src="/js/chats.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,6 +67,13 @@
             color: white;
             border: none;
             cursor: pointer;
+        }
+        .sent {
+            background-color: rgb(240, 246, 179);
+            text-align: right;
+        }
+        .received {
+            background-color: rgb(176, 235, 179);
         }
     </style>
 </head>
