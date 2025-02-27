@@ -1,3 +1,4 @@
+// Load required libraries
 require("dotenv").config();
 const http = require("http");
 const { Server } = require("socket.io");
@@ -7,11 +8,11 @@ const path = require("node:path");
 const pool = require("./db/pool");
 const axios = require("axios");
 
+// Handling Routes
 const authRoutes = require("./routes/auth");
 const itemRoutes = require("./routes/items");
 const savedItemRoutes = require("./routes/savedItems");
 const chatRoutes = require("./routes/chats");
-const exp = require("node:constants");
 
 const assetsPath = path.join(__dirname, "public");
 const app = express();
@@ -27,6 +28,7 @@ app.use("/items", itemRoutes);
 app.use("/savedItems", savedItemRoutes);
 app.use("/chats", chatRoutes);
 
+// Handle Login Status
 app.get("/", async (req, res) => {
     const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.redirect("/auth/login");
@@ -40,16 +42,14 @@ app.get("/", async (req, res) => {
             headers: {Cookie: `token=${token}`} // /auth/user req should contain the token 
         });
         const userData = await response.json() || { id: -1 };
-        console.log(userData);
-        res.render("index", { items: items, buyer_id: userData.id });
+        res.render("index", { products: items, buyer_id: userData.id });
     } catch (err) {
         console.log(err.message);
-        res.render("index", { items: [], buyer_id: userData.id });
+        res.render("index", { products: [], buyer_id: userData.id });
     }
-
-    res.render("index");
 });
 
+// Handle profile route
 app.get("/profile", (req, res) => {
     res.render("profile");
 });
@@ -88,13 +88,8 @@ const io = new Server(server, {
     cors: { origin: "*" }
 });
 
+// Handle Websocket for real-time chat
 io.on("connection", (socket) => {
-    // console.log("User connected:", socket.id);
-
-    // socket.on("connect", () => {
-    //     console.log("Socket connected;", socket.id);
-    // })
-
     socket.on("join_chat", (chatId) => {
         console.log(`User ${socket.id} joined chat ${chatId}`);
         socket.join(chatId);
