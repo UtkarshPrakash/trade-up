@@ -6,7 +6,9 @@ async function startChat(buyerId, sellerId) {
             body: JSON.stringify({ buyer_id: buyerId, seller_id: sellerId }),
         });
 
-        if (!response.ok) throw new Error("Failed to start chat");
+        if (!response.ok) {
+            throw new Error("Failed to start chat");
+        }
 
         const chatData = await response.json();
         window.location.href = `/chats/${chatData.chat_id}`; // Redirects to chat page

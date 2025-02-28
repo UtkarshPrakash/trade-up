@@ -42,7 +42,17 @@ app.get("/", async (req, res) => {
             headers: {Cookie: `token=${token}`} // /auth/user req should contain the token 
         });
         const userData = await response.json() || { id: -1 };
-        res.render("index", { products: items, buyer_id: userData.id });
+        // Check if user id available
+        if (typeof(userData.id) === "undefined") {
+            if (userData.error === "Session expired. Please log in again."){
+                console.log("Session expired, redirecting to login page");
+                res.redirect("/auth/login");
+            } else {
+                console.log(userData.error);
+            }
+        } else {
+            res.render("index", { products: items, buyer_id: userData.id });
+        }
     } catch (err) {
         console.log(err.message);
         res.render("index", { products: [], buyer_id: userData.id });

@@ -63,7 +63,7 @@ body {
 }
 
 /* Chat List Items */
-.chat-item {
+.chat-item, .sidebar-item {
     padding: 12px 15px;
     background-color: rgb(162, 123, 92);
     color: white;
@@ -72,6 +72,14 @@ body {
     transition: all 0.3s ease-in-out;
     font-weight: bold;
     text-align: center;
+}
+
+.sidebar-item {
+    background-color: rgb(103, 127, 112);
+    margin-top: 20px;
+    margin-bottom: 20vh;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .chat-item:hover {
@@ -100,12 +108,13 @@ body {
     background-color: rgb(63, 79, 68);
     color: white;
     border-radius: 8px;
+    margin: 20px;
 }
 
 /* Messages */
 .messages {
     width: 98%;
-    max-height: 80%;
+    height: 80%;
     overflow-y: auto;
     padding: 15px;
     border-radius: 10px;

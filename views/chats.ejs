@@ -12,12 +12,13 @@
     <div class="container">
         <!-- Left Panel: List of Chats -->
         <div class="sidebar">
+            <div class="sidebar-item" onclick="window.location.href='/'"> Home Page </div>
             <h2>Your Chats</h2>
             <div id="chatList">
                 <% if (chats.length > 0) { %>
                     <% chats.forEach(chat => { %>
                         <div class="chat-item" onclick="window.location.href='/chats/<%= chat.id %>'">
-                            Chat with <%= chat.seller_id === user_id ? chat.buyer_id : chat.seller_id %>
+                            <%= chat.seller_id === user_id ? chat.buyer_name : chat.seller_name %>
                         </div>
                     <% }) %>
                 <% } else { %>
@@ -28,9 +29,9 @@
 
         <!-- Main Panel: Chat Messages -->
         <div class="chat-box">
-            <% if (chatDetails) { %>
+            <% if (chatDetails && (chatDetails.seller_id || chatDetails.buyer_id)) { %>
                 <h2 id="chatTitle">
-                    Chat with <%= chatDetails.seller_id === user_id ? chatDetails.buyer_id : chatDetails.seller_id %>
+                    Chat with <%= chatDetails.seller_id === user_id ? chatDetails.buyer_name : chatDetails.seller_name %>
                 </h2>
                 <div class="messages" id="messages">
                     <% messages.forEach(msg => { %>
@@ -44,7 +45,7 @@
                     <button onclick="sendMessage()">Send</button>
                 </div>
             <% } else { %>
-                <p>Select a chat to start messaging.</p>
+                <h2 id="chatTitle">Select a chat to start messaging</h2>
             <% } %>
         </div>
     </div>
