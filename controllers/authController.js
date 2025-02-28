@@ -8,7 +8,6 @@ exports.getUser = async (req, res) => {
         if (!token) return res.status(401).json({ error: "Not authenticated" });
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decoded);
         const user = await pool.query("SELECT id, username FROM users WHERE id = $1", [decoded.user_id]);
 
         if (user.rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -61,3 +60,22 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.newpost = async (req, res) => {
+    try {
+        const { title, description, price, image_url } = req.body;
+
+        const token = req.cookies.token; // Read JWT from cookies
+        if (!token) return res.status(401).json({ error: "Not authenticated" });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        const queryResult = await pool.query(
+            "INSERT INTO items (user_id, title, description, price, image_url, created_at) VALUES ($1, $2, $3, $4, $5, NOW())",
+            [decoded.user_id, title, description, price, image_url]
+        );
+
+        res.redirect("/");
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}

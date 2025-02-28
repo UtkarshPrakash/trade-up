@@ -29,3 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// To scroll down at the latest message every time
+function scrollToBottom() {
+    const messagesDiv = document.getElementById("messages");
+    if (messagesDiv) {
+        setTimeout(() => {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }, 100); // Small delay to ensure messages are fully loaded
+    }
+}
+
+window.onload = scrollToBottom

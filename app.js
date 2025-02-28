@@ -51,11 +51,11 @@ app.get("/", async (req, res) => {
                 console.log(userData.error);
             }
         } else {
-            res.render("index", { products: items, buyer_id: userData.id });
+            res.render("index", { products: items, buyer_id: userData.id, buyer_name: userData.username });
         }
     } catch (err) {
         console.log(err.message);
-        res.render("index", { products: [], buyer_id: userData.id });
+        res.render("index", { products: [], buyer_id: userData.id, buyer_name: "NA" });
     }
 });
 

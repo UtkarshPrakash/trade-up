@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background-color: rgb(220, 215, 201);
@@ -23,11 +23,17 @@ body {
     padding: 10px 15px;
     font-weight: bold;
     transition: background 0.3s ease-in-out;
+    font-size: 1.2em;
 }
 
 .navbar a:hover {
     background-color: rgb(162, 123, 92);
     border-radius: 5px;
+}
+
+#profile {
+    font-family: "Playwrite IT Moderna", cursive;
+    font-size: 1.6em;
 }
 
 /* Logout Button */
@@ -36,7 +42,7 @@ body {
     border: none;
     padding: 8px 15px;
     color: white;
-    font-size: 14px;
+    font-size: 1em;
     font-weight: bold;
     cursor: pointer;
     border-radius: 5px;
@@ -65,6 +71,20 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
 }
 
+#search {
+    width: 40%;
+    margin: 20px auto; /* Centers horizontally */
+    display: block;
+    text-align: center;
+}
+
+#search input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
 /* Items Grid */
 .items {
     display: grid;

@@ -45,7 +45,7 @@ exports.getUserChats = async (req, res) => {
 
         // Fetch all user chats (for the sidebar)
         const chats = await pool.query(
-            "SELECT * FROM chats WHERE buyer_id = $1 OR seller_id = $1 ORDER BY created_at DESC",
+            " select a.*, b.username as buyer_name, c.username as seller_name from chats a join users b on a.buyer_id=b.id join users c on a.seller_id=c.id WHERE buyer_id = $1 OR seller_id = $1 ORDER BY created_at DESC",
             [user_id]
         );
 

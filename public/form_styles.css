@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(220, 215, 201);
+    text-align: center;
+    padding: 50px;
+}
+.form-container {
+    background-color: rgb(63, 79, 68);;
+    width: 300px; /* Set a fixed width */
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    color: white;
+    text-align: center;
+}
+input {
+    width: calc(100% - 20px); /* Reduce width slightly to add space */
+    max-width: 250px; /* Prevent excessive stretching */
+    padding: 10px;
+    margin: 10px auto; /* Center the inputs */
+    display: block;
+    border: none;
+    border-radius: 5px;
+}
+button {
+    background: rgb(162, 123, 92);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
