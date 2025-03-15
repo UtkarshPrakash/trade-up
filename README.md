@@ -36,7 +36,11 @@
 
 ## 📸 Screenshots
 
-> *(Add your deployed site screenshots here like chats page, product listing, chat messaging, login/register)*
+> ![image](https://github.com/user-attachments/assets/210ee090-d170-487e-9f2b-b74680e87842)
+> ![image](https://github.com/user-attachments/assets/15e94bf6-2733-4f12-9a45-07833521d356)
+> ![image](https://github.com/user-attachments/assets/6ec02a40-5cb1-4593-947d-aa0c6118e42e)
+
+
 
 ---
 
