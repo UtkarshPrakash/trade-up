@@ -28,16 +28,18 @@ app.use("/items", itemRoutes);
 app.use("/savedItems", savedItemRoutes);
 app.use("/chats", chatRoutes);
 
+const PORT = process.env.PORT || 3000;
+
 // Handle Login Status
 app.get("/", async (req, res) => {
     const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.redirect("/auth/login");
 
     try {
-        const itemsResponse = await axios.get("http://localhost:3000/items"); // change to wherever hosted
+        const itemsResponse = await axios.get(`http://localhost:${PORT}/items`); // change to wherever hosted
         const items = itemsResponse.data || [];
         const response = await fetch(
-            "http://localhost:3000/auth/user", { 
+            `http://localhost:${PORT}/auth/user`, { 
             method: "GET",
             headers: {Cookie: `token=${token}`} // /auth/user req should contain the token 
         });
@@ -70,7 +72,7 @@ app.get("/chats", async (req, res) => {
     if (!token) return res.redirect("/auth/login");
 
     try {
-        const response = await fetch("http://localhost:3000/auth/user", {
+        const response = await fetch(`http://localhost:${PORT}/auth/user`, {
             method: "GET",
             credentials: "include", // Ensure cookies are sent
             headers: { Cookie: `token=${token}` }
@@ -124,7 +126,6 @@ io.on("connection", (socket) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
 });

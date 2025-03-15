@@ -1,4 +1,7 @@
 const pool = require("../db/pool");
+require("dotenv").config();
+
+const PORT = process.env.PORT || 3000;
 
 exports.createChat = async (req, res) => {
     try {
@@ -33,7 +36,7 @@ exports.getUserChats = async (req, res) => {
         if (!token) return res.redirect("/auth/login");
 
         // Fetch user data
-        const response = await fetch("http://localhost:3000/auth/user", {
+        const response = await fetch(`http://localhost:${PORT}/auth/user`, {
             method: "GET",
             headers: { Cookie: `token=${token}` }
         });
@@ -71,7 +74,7 @@ exports.getChatMessages = async (req, res) => {
         if (!token) return res.redirect("/auth/login");
 
         // Fetch user data
-        const response = await fetch("http://localhost:3000/auth/user", {
+        const response = await fetch(`http://localhost:${PORT}/auth/user`, {
             method: "GET",
             headers: { Cookie: `token=${token}` }
         });
